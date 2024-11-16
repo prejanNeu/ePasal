@@ -5,25 +5,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ePasal</title>
+  <title>ePasal - Products</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
 </head>
 <body>
-  <!-- Header Section -->
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="{% url 'login_page' %}">Login</a>
+    <a href="{% url 'register_page' %}">Register</a>
+    <a href="{% url 'product_page' %}">Products</a>
+  </nav>
+
+  <!-- Banner Section -->
   <header>
-    <nav>
-      <h1>ePasal</h1>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <div class="cart-icon">
-        <img id="cart" src="https://w7.pngwing.com/pngs/317/428/png-transparent-shopping-cart-computer-icons-add-to-cart-button-angle-text-service-thumbnail.png" alt="Cart">
-        <span class="cart-count">0</span>
-      </div>
-    </nav>
     <div class="banner">
       <h2>Discover the Latest Fashion</h2>
       <button class="shop-now">Shop Now</button>
@@ -34,32 +29,33 @@
   <section class="products">
     <h2>Our Products</h2>
     <div class="product-grid">
-      <!-- Sample product card -->
+      <!-- Loop through the products -->
       {% for product in products %}
       <div class="product-card">
-        
-        <img src="{{product.image.url}}">
-        <h3>{{product.name}}</h3>
-        <p>{{product.price}}</p>
-        
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }}</p>
         <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
       </div>
       {% endfor %}
-      <!-- Add more products as needed -->
     </div>
   </section>
 
+  <!-- Cart Icon -->
+  <div class="cart-icon">
+    <img id="cart" src="https://w7.pngwing.com/pngs/317/428/png-transparent-shopping-cart-computer-icons-add-to-cart-button-angle-text-service-thumbnail.png" alt="Cart">
+    <span class="cart-count">0</span>
+  </div>
+
   <script>
     // Simple cart functionality
-        let cartCount = 0;
+    let cartCount = 0;
 
-        function addToCart() {
-        cartCount++;
-        document.querySelector('.cart-count').innerText = cartCount;
-        alert('Item added to cart!');
-        }
-
+    function addToCart() {
+      cartCount++;
+      document.querySelector('.cart-count').innerText = cartCount;
+      alert('Item added to cart!');
+    }
   </script>
 </body>
-
 </html>

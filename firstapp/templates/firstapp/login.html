@@ -2,32 +2,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <title>Login - ePasal</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-    <div>
-        <h1>Login Account</h1>
-        <form method="POST">
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'login_page' %}">Login</a>
+        <a href="{% url 'register_page' %}">Register</a>
+        <a href="{% url 'product_page'%}">Products</a>
+    </nav>
 
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Login to Your Account</h1>
+        <form method="POST">
             {% csrf_token %}
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="passwird" name="password" required><br><br>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
             <input type="submit" id="login_btn" value="Login">
         </form>
+
+        <div class="links">
+            <a href="{% url 'register_page' %}" id="create-account">Create an Account</a>
+            <a href="/forgot-password" id="forgot-password">Forgot Password?</a>
+            <a href="{% url 'home_page' %}" id="home_page">Home Page</a>
+        </div>
     </div>
-    <div class="links">
-        <a href="{% url 'register_page' %}" id="create-account">Create an Account</a>
-        <a href="/forgot-password" id="forgot-password">Forgot Password?</a>
-        <a href="{% url 'home_page' %}" id="home_page">Home Page</a>
-        
-    </div>
-</div>
 </body>
 </html>

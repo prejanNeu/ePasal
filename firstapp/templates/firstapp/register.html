@@ -2,20 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ePasal</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
-    <title>Register</title>
-
 </head>
-
 <body>
-    <div>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'login_page' %}">Login</a>
+        <a href="{% url 'register_page' %}">Register</a>
+        <a href="{% url 'product_page' %}">Products</a>
+    </nav>
+
+    <!-- Register Form -->
+    <div class="form-container">
         <h1>Register</h1>
         <form method="POST">
-
             {% csrf_token %}
 
             <label for="name">Name</label>
@@ -27,7 +32,7 @@
             <label>
                 <input type="radio" name="role" value="seller" onclick="field()">
                 <span class="radio"></span>
-                    Seller
+                Seller
             </label><br><br>
 
             <label>
@@ -36,22 +41,18 @@
                 Buyer
             </label><br><br>
 
-            <!-- Teacher-specific fields -->
-            
-
             <label for="password">Password</label>
             <input type="password" name="password" id="password" required><br><br>
+
             <input type="submit" value="Register" id="register_btn">
 
             <div class="links">
                 <a href="{% url 'login_page' %}">Login Account</a>
                 <a href="/forgot-password" id="forgot-password">Forgot Password?</a>
-                <a href="{% url 'home_page' %}" id="login_avvount">Home Page</a>
-                
+                <a href="{% url 'home_page' %}" id="home_page">Home Page</a>
             </div>
-
         </form>
     </div>
-</body>
 
+</body>
 </html>

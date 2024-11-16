@@ -8,59 +8,72 @@
     <link rel="stylesheet" href="{% static 'css/buyer_dashboard.css' %}">
 </head>
 <body>
-    <h1>Welcome, {{ request.user.username }}!</h1>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'login_page' %}">Login</a>
+        <a href="{% url 'register_page' %}">Register</a>
+        <a href="{% url 'product_page' %}">Products</a>
+        <a href="{% url 'buyer_dashboard' %}">Dashboard</a>
+    </nav>
     
-    <!-- Profile Section -->
-    <section id="profile">
-        <h2>Your Profile</h2>
-        <p>Email: {{ request.user.email }}</p>
-        <p>Joined: {{ request.user.date_joined|date:"F d, Y" }}</p>
-    </section>
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <h1>Welcome, {{ request.user.username }}!</h1>
+        
+        <!-- Profile Section -->
+        <section id="profile">
+            <h2>Your Profile</h2>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p><strong>Joined:</strong> {{ request.user.date_joined|date:"F d, Y" }}</p>
+        </section>
+        
+        <!-- Order History Section -->
+        <section id="orders">
+            <h2>Your Orders</h2>
+            {% if orders %}
+                <ul>
+                    {% for order in orders %}
+                        <li>
+                            <strong>Order ID:</strong> {{ order.id }}<br>
+                            <strong>Date:</strong> {{ order.date|date:"F d, Y" }}<br>
+                            <strong>Status:</strong> {{ order.status }}<br>
+                            <strong>Total:</strong> ${{ order.total }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no orders yet.</p>
+            {% endif %}
+        </section>
+        
+        <!-- Cart Section -->
+        <section id="cart">
+            <h2>Your Cart</h2>
+            {% if cart_items %}
+                <ul>
+                    {% for item in cart_items %}
+                        <li>
+                            <strong>Product:</strong> {{ item.product.name }}<br>
+                            <strong>Quantity:</strong> {{ item.quantity }}<br>
+                            <strong>Price:</strong> ${{ item.product.price }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'cart' %}">View Cart</a>
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}
+        </section>
+    </div>
     
-    <!-- Order History Section -->
-    <section id="orders">
-        <h2>Your Orders</h2>
-        {% if orders %}
-            <ul>
-                {% for order in orders %}
-                    <li>
-                        <strong>Order ID:</strong> {{ order.id }}<br>
-                        <strong>Date:</strong> {{ order.date|date:"F d, Y" }}<br>
-                        <strong>Status:</strong> {{ order.status }}<br>
-                        <strong>Total:</strong> ${{ order.total }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>You have no orders yet.</p>
-        {% endif %}
-    </section>
-    
-    <!-- Cart Section -->
-    <section id="cart">
-        <h2>Your Cart</h2>
-        {% if cart_items %}
-            <ul>
-                {% for item in cart_items %}
-                    <li>
-                        <strong>Product:</strong> {{ item.product.name }}<br>
-                        <strong>Quantity:</strong> {{ item.quantity }}<br>
-                        <strong>Price:</strong> ${{ item.product.price }}
-                    </li>
-                {% endfor %}
-            </ul>
-            <a href="{% url 'cart' %}">View Cart</a>
-        {% else %}
-            <p>Your cart is empty.</p>
-        {% endif %}
-    </section>
+    <!-- Script to clear cookies on logout -->
     <script>
         window.addEventListener('unload', function() {
             document.cookie.split(";").forEach(function(c) {
                 document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
             });
         });
-        </script>
-        
+    </script>
 </body>
 </html>

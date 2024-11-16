@@ -1,84 +1,171 @@
-body{
-    background-color: white;
-    font-family: sans-serif;
+/* Basic Reset */
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box;
 }
 
-h1{
-    align-items: center;
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a); /* Gradient Background */
+    color: #333;
+    display: flex;
     justify-content: center;
-    text-align: center;
-    background-color: rgb(230, 224, 181);
-    margin: 0;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 20px;
+    flex-direction: column;
 }
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #555;
+
+/* Navigation Bar */
+nav {
+    background-color: #007bff;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 20px;
+    padding: 10px;
+    text-transform: uppercase;
     font-weight: bold;
 }
-input[type="password"],
-input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 19px;
-}
-input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-div{
-    background-color: white;
-}
-#login_btn{
-    background-color: rgb(74, 182, 94);
-    color: white;
-    cursor: pointer;
+
+nav a:hover {
+    background-color: #0056b3;
     border-radius: 5px;
-    font-size: 20px;
-    border: none;
-    transition: 0.3s ease;
-    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-#login_btn:hover{
-    background-color: rgb(213, 67, 62);
-    
-}
-.links {
-    margin-top: 15px;
+/* Main Content */
+.container {
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 120px; /* Space for the fixed navbar */
     text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#login_btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#login_btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.links {
+    margin-top: 30px;
 }
 
 .links a {
-    display: block;
-    color: #007bff; /* Link color */
+    display: inline-block;
+    font-size: 18px;
+    color: #007bff;
+    padding: 15px 30px;
+    margin: 10px;
     text-decoration: none;
-    margin: 5px 0;
-    transition: 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
-a:hover{
-    color: red;
+
+.links a:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin-top: 80px; /* Adjust space for the fixed navbar */
+    }
+
+    nav a {
+        font-size: 16px;
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .form-group input {
+        padding: 12px;
+    }
+
+    .links a {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
 }

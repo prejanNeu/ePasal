@@ -1,161 +1,141 @@
-body {
-    background-color: white;
-    font-family: sans-serif;
+/* Basic Reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a); /* Gradient Background */
+    color: #333;
     display: flex;
     flex-direction: column;
-    height: 80vh;
-    justify-content: center;
-    align-items: center;
-}
-
-h1 {
     align-items: center;
     justify-content: center;
-    text-align: center;
-    background-color: rgb(230, 224, 181);
-    margin: 0;
+    height: 100vh;
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #555;
+nav {
+    background-color: #007bff;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 20px;
+    padding: 10px;
+    text-transform: uppercase;
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+nav a:hover {
+    background-color: #0056b3;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Register Form Container */
+.form-container {
+    background-color: white;
+    padding: 40px;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 19px;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+
+h1 {
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    text-align: left;
+    width: 100%;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
 input[type="submit"] {
     width: 100%;
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-div {
-    background-color: white;
-}
-
-#register_btn {
-    background-color: rgb(74, 182, 94);
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 20px;
-    border: none;
-    transition: 0.3s ease;
-}
-
-#register_btn:hover {
-    background-color: rgb(213, 67, 62);
-}
-
-.links {
-    margin-top: 15px;
-    text-align: center;
-}
-
-.links a {
-    display: block;
-    color: #007bff; /* Link color */
-    text-decoration: none;
-    margin: 5px 0;
-    transition: 0.3s ease;
-}
-
-a:hover {
-    color: red;
-}
-
-/* Hide the default radio buttons */
-input[type="radio"] {
-    display: none;
-}
-
-/* Custom radio button style */
-.radio {
-    position: relative;
-    padding-left: 35px;
-    margin-right: 15px;
-    cursor: pointer;
+    padding: 12px;
     font-size: 18px;
-    color: #555;
-    user-select: none;
-}
-
-/* Create a custom radio button */
-.radio::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #ccc;
-    border: 2px solid #007bff;
-    transition: background-color 0.1s ease;
-}
-
-/* Create the indicator (the dot/circle inside the radio button) */
-.radio::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
     background-color: #007bff;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.1s ease-in-out;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Show the indicator when the radio button is checked */
-input[type="radio"]:checked + .radio::after {
-    transform: translate(-50%, -50%) scale(1);
+input[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-/* Optional: Hover effect */
-label:hover .radio::before {
-    background-color: #e6e6e6;
+.radio {
+    margin-right: 10px;
 }
 
+/* Links Section */
 .links {
-    margin-top: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .links a {
-    display: block;
-    color: #007bff; /* Link color */
+    font-size: 16px;
+    color: #007bff;
     text-decoration: none;
-    margin: 5px 0;
-    transition: 0.3s ease;
 }
-a:hover{
-    color: red;
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    label, input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+        font-size: 16px;
+    }
 }
