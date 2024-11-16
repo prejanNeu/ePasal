@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ePasal</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <nav>
+      <h1>ePasal</h1>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="cart-icon">
+        <img id="cart" src="https://w7.pngwing.com/pngs/317/428/png-transparent-shopping-cart-computer-icons-add-to-cart-button-angle-text-service-thumbnail.png" alt="Cart">
+        <span class="cart-count">0</span>
+      </div>
+    </nav>
+    <div class="banner">
+      <h2>Discover the Latest Fashion</h2>
+      <button class="shop-now">Shop Now</button>
+    </div>
+  </header>
+
+  <!-- Product Section -->
+  <section class="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <!-- Sample product card -->
+      {% for product in products %}
+      <div class="product-card">
+        
+        <img src="{{product.image.url}}">
+        <h3>{{product.name}}</h3>
+        <p>{{product.price}}</p>
+        
+        <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+      </div>
+      {% endfor %}
+      <!-- Add more products as needed -->
+    </div>
+  </section>
+
+  <script>
+    // Simple cart functionality
+        let cartCount = 0;
+
+        function addToCart() {
+        cartCount++;
+        document.querySelector('.cart-count').innerText = cartCount;
+        alert('Item added to cart!');
+        }
+
+  </script>
+</body>
+
+</html>
