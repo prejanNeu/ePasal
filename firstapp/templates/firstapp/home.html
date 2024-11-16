@@ -1,29 +1,54 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E Commerce</title>
-
-    <style>
-        h1{
-    text-align: center;
-    font-size: 50px;
-    color: red;
-}
-    </style>
+    <title>ePasal - Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 </head>
 <body>
-    <h1>this is the home page</h1>
-    <nav>home</nav>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi aspernatur dicta veniam culpa obcaecati qui reiciendis libero est sunt facere, dolorum laborum maxime ipsum ex, fugit eos magnam, ducimus quibusdam.</p>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus perferendis vel velit provident veritatis in, nostrum eos laboriosam fugiat facere, laborum reprehenderit voluptatum eveniet! Quam ad nulla voluptatibus quia voluptas nam quaerat dolores? Quae natus enim in magnam consequatur perspiciatis vel iure vitae recusandae! Rem quod esse saepe eligendi cum incidunt perferendis, sapiente optio culpa dolores tempora! Quisquam soluta ex vero dicta impedit, atque inventore ipsa amet tempore ab sunt esse quasi tenetur dolorem rerum voluptates cupiditate molestias reiciendis in doloremque ea eaque autem voluptatum. Voluptatum cumque, nihil beatae quas cupiditate vero ipsum autem optio nulla temporibus suscipit illum ipsa!</p>
 
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'login_page' %}">Login</a>
+        <a href="{% url 'register_page' %}">Register</a>
+        <a href="{% url 'product_page'%}">Products</a>
+    </nav>
 
-    <a href="{% url 'login_page' %}">Login</a>
-    <br>
-    <a href="{% url 'register_page' %}">Register</a>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to ePasal</h1>
+
+        <p>ePasal is your one-stop shop for the best online shopping experience. We offer a wide range of products, from electronics to clothing, all at unbeatable prices. Start shopping today!</p>
+
+        <p>Whether you're looking for the latest gadgets or everyday essentials, ePasal has got you covered. Our simple and secure platform ensures a seamless shopping experience from start to finish.</p>
+
+        <div class="links">
+            <a href="{% url 'login_page' %}">Login</a>
+            <a href="{% url 'register_page' %}">Register</a>
+            <a href="{% url 'product_page'%}">Products</a>
+        </div>
+    </div>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <h2>Why Choose ePasal?</h2>
+        <div class="service-card">
+            <h3>Quality Products</h3>
+            <p>We offer top-quality products sourced from trusted brands worldwide, ensuring you always get the best value.</p>
+        </div>
+        <div class="service-card">
+            <h3>Fast Shipping</h3>
+            <p>Enjoy fast and reliable shipping. Your orders will be delivered to your doorstep in no time.</p>
+        </div>
+        <div class="service-card">
+            <h3>24/7 Customer Support</h3>
+            <p>Our dedicated customer support team is available round-the-clock to assist you with any queries or issues.</p>
+        </div>
+    </section>
 
 </body>
-
 </html>

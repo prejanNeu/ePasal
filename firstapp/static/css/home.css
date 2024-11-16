@@ -1,0 +1,158 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a); /* Gradient Background */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 20px;
+    flex-direction: column;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #007bff;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 20px;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #0056b3;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Content */
+.container {
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 100px; /* Space for the fixed navbar */
+    text-align: center;
+}
+
+h1 {
+    font-size: 60px;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.links {
+    margin-top: 30px;
+}
+
+.links a {
+    display: inline-block;
+    font-size: 18px;
+    color: white;
+    background-color: #007bff;
+    padding: 15px 30px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.links a:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+/* Why Choose Us Section */
+.why-choose-us {
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    padding: 40px;
+    margin-top: 50px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.why-choose-us h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.service-card {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    nav a {
+        font-size: 16px;
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .service-card {
+        padding: 20px;
+        margin: 10px 0;
+    }
+
+    .why-choose-us h2 {
+        font-size: 30px;
+    }
+}
