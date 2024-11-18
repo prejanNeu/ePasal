@@ -55,6 +55,4 @@ def login_page(request):
             return HttpResponse("invalid username or password")
 
 
-
-
     return render(request,"firstapp/login.html")
