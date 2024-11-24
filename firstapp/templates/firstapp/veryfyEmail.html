@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - ePasal</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/verify_mail.css' %}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'login_page' %}">Login</a>
+        <a href="{% url 'register_page' %}">Register</a>
+        <a href="{% url 'product_page'%}">Products</a>
+    </nav>
+
+    <!-- OTP Verification Content -->
+    <div class="container">
+        <h1>Verify Your OTP</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="otp">Enter OTP</label>
+                <input type="text" name="otp" placeholder="Enter OTP here" required>
+            </div>
+            <button type="submit" class="submit-btn">Verify OTP</button>
+        </form>
+
+        <div class="resend-otp">
+            <p>Didn't get the code?</p>
+            <a href="{% url 'get_code' %}" class="resend-btn">Resend OTP</a>
+        </div>
+    </div>
+
+</body>
+</html>

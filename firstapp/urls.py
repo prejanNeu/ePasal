@@ -1,7 +1,6 @@
 from django.urls import path 
 from . import views 
-from django.conf import settings
-from django.conf.urls.static import static
+
 
 urlpatterns = [
     path("",views.home_page,name="home_page"),
@@ -9,8 +8,10 @@ urlpatterns = [
     path("login/",views.login_page,name="login_page"),
     path("product/",views.product_page,name='product_page'),
     path('buyer_dashboard',views.buyer_dashboard,name='buyer_dashboard'),
+    path('seller_dashboard/',views.seller_dashboard,name='seller_dashboard'),
+    path("seller_register",views.seller_register,name="seller_register"),
+    path("veryfy_email",views.veryfy_email,name="veryfy_email"),
+    path("get_code/",views.get_code,name="get_code")
 ]
 
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

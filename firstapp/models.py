@@ -4,7 +4,7 @@ from django.contrib.auth.models import User  # Assuming you'll link to Django's 
 # Model for storing roles (either 'buyer' or 'seller')
 class UserRole(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=10, choices=[('buyer', 'Buyer'), ('seller', 'Seller')])
+    role = models.CharField(max_length=10, choices=[('buyer', 'buyer'), ('seller', 'seller')])
 
     def __str__(self):
         return f"{self.user.email} - {self.role}"
@@ -21,7 +21,7 @@ class Seller(models.Model):
 # Model for buyer information
 class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,default=None)
     address = models.TextField()
     contact_number = models.CharField(max_length=15)
 
@@ -33,7 +33,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='product_images/')
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
 
     def __str__(self):

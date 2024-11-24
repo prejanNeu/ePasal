@@ -46,7 +46,7 @@ nav a:hover {
 header .banner {
   width: 100%;
   height: 300px;
-  background-image: url('https://via.placeholder.com/1500x500'); /* Replace with your banner image */
+  /* background-image: url('https://github.com/prejanNeu/ePasal/blob/main/logo/logo.png?raw=true'); Replace with your banner image */
   background-size: cover;
   background-position: center;
   color: white;

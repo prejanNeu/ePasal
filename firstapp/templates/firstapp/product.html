@@ -32,9 +32,9 @@
       <!-- Loop through the products -->
       {% for product in products %}
       <div class="product-card">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.price }}</p>
+        <img src="{{ product.image.url }}" alt="product.name" id="image">
+        <h3 id="name">{{ product.name }}</h3>
+        <p id="price">{{ product.price }}</p>
         <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
       </div>
       {% endfor %}
@@ -55,6 +55,12 @@
       cartCount++;
       document.querySelector('.cart-count').innerText = cartCount;
       alert('Item added to cart!');
+
+      let name = document.getElementById("name");
+      let price = document.getElementById("price");
+      let image = document.getElementById("image");
+       
+
     }
   </script>
 </body>
