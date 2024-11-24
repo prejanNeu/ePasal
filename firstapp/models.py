@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User  # Assuming you'll link to Django's User model
 
+
+
+
 # Model for storing roles (either 'buyer' or 'seller')
 class UserRole(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -48,3 +51,14 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.id} - {self.product.name}"
+    
+
+# this is for a cart 
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    add_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Cart({self.user}, {self.product}, {self.quantity})"

@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ePasal - Products</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
+  <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -32,10 +33,10 @@
       <!-- Loop through the products -->
       {% for product in products %}
       <div class="product-card">
-        <img src="{{ product.image.url }}" alt="product.name" id="image">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" id="image">
         <h3 id="name">{{ product.name }}</h3>
-        <p id="price">{{ product.price }}</p>
-        <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+        <p id="price">${{ product.price }}</p>
+        <button class="add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
       </div>
       {% endfor %}
     </div>
@@ -48,20 +49,42 @@
   </div>
 
   <script>
-    // Simple cart functionality
-    let cartCount = 0;
+    // JavaScript for Add to Cart functionality
+    const cartCountElement = document.querySelector('.cart-count');
+    let cartCount = parseInt(cartCountElement.textContent);
 
-    function addToCart() {
-      cartCount++;
-      document.querySelector('.cart-count').innerText = cartCount;
-      alert('Item added to cart!');
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.productId; // Fetch the product ID from the button
+            const quantity = 1; // Default quantity
 
-      let name = document.getElementById("name");
-      let price = document.getElementById("price");
-      let image = document.getElementById("image");
-       
+            // Update cart count visually
+            cartCount++;
+            cartCountElement.textContent = cartCount;
 
-    }
+            // Get CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // Send POST request to Django
+            fetch("{% url 'add_to_cart' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ product_id: productId, quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
   </script>
 </body>
 </html>

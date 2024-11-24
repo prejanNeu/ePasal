@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Seller, Buyer, UserRole, Order
+from .models import Product, Seller, Buyer, UserRole, Order,Cart
 
 # Product Admin Configuration
 class ProductAdmin(admin.ModelAdmin):
@@ -39,3 +39,12 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'order_date')  # Filter options
 
 admin.site.register(Order, OrderAdmin)
+
+
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'quantity', 'add_date')
+    search_fields = ('user__username', 'product__name')  # Search by username or product name
+
+
+admin.site.register(Cart,CartAdmin)

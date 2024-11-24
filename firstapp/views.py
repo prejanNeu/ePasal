@@ -1,12 +1,15 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from .models import Product,UserRole,Seller,Buyer
+from django.http import HttpResponse,JsonResponse
+from .models import Product,UserRole,Seller,Buyer,Cart
 from .utils import generateOtp,sendEmail
+import json 
 
 
+
+# get otp in the email 
 def get_code(request):
     email = request.session.get("email")
     otp = generateOtp()
@@ -15,6 +18,7 @@ def get_code(request):
     return redirect("veryfy_email")
 
 
+# veryfy with otp 
 def veryfy_email(request):
     email = request.session.get('email')
     password = request.session.get('password')
@@ -31,7 +35,7 @@ def veryfy_email(request):
                 return redirect("seller_register")
             
             if role == "buyer":
-                return redirect("buyer_dashboard")
+                return redirect("login_page")
 
         else:
             return render(request,"firstapp/veryfyEmail.html",{"message":"envalid otp "})
@@ -39,10 +43,12 @@ def veryfy_email(request):
     return render(request,"firstapp/veryfyEmail.html")
     
 
-
+# this is the home page of the web page 
 def home_page(request):
     return render(request,"firstapp/home.html")
 
+
+# this is the page for the seller register 
 def seller_register(request):
     email = request.session.get('email')
     password = request.session.get('password')
@@ -65,11 +71,11 @@ def seller_register(request):
         user_role = UserRole.objects.create(user=user, role='seller')
         user_role.save()
         
-        return redirect('login_page')  # Redirect email verification page 
+        return redirect('buyer_register')  # Redirect email verification page 
 
     return render(request, 'firstapp/seller_register.html')
 
-
+# this is the page for the buyer register
 def buyer_register(request):
     email = request.session.get('email')
     password = request.session.get('password')
@@ -90,16 +96,23 @@ def buyer_register(request):
         buyer = Buyer.objects.create(user=user, name=name,address=address, contact_number=contact_number)
         buyer.save()
 
+    return render
 
 
 
 
+# buyer dashboard page 
 @login_required(login_url='login_page')
 def buyer_dashboard(request):
+
+    cart_item = Cart.objects.filter(user=request.user)
+
     
-    return render(request,'firstapp/buyer_dashboard.html')
+    return render(request,'firstapp/buyer_dashboard.html',{"cart":cart_item})
 
 
+
+# seller dashboard page
 @login_required(login_url='login_page')
 def seller_dashboard(request):
     seller = Seller.objects.filter(user=request.user).first()
@@ -118,13 +131,15 @@ def seller_dashboard(request):
 
     return render(request,'firstapp/seller_dashboard.html',{"seller":seller})
 
-
+# the page where the product are displaying 
 def product_page(request):
     products = Product.objects.all()
 
     return render(request,'firstapp/product.html',{'products':products})
 
 
+
+# the page for register the new user 
 def register_page(request):
 
     if request.method == "POST":
@@ -145,6 +160,8 @@ def register_page(request):
     return render(request,"firstapp/register.html")
 
 
+
+# this is the login page for the user 
 def login_page(request):
 
     if request.method == "POST":
@@ -170,3 +187,36 @@ def login_page(request):
 
 
     return render(request,"firstapp/login.html")
+
+
+
+
+# after adding item to the cart 
+@login_required
+def add_to_cart(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)  # Parse JSON data from the request body
+            product_id = data.get('product_id')
+            quantity = data.get('quantity', 1)  # Default quantity to 1
+            print(product_id)
+            # Ensure the product exists
+            product = get_object_or_404(Product, id=product_id)
+
+            # Add product to the user's cart
+            cart_item, created = Cart.objects.get_or_create(
+                user=request.user,
+                product=product,
+                defaults={'quantity': quantity}
+            )
+
+            if not created:
+                # If the item is already in the cart, update the quantity
+                cart_item.quantity += quantity
+                cart_item.save()
+
+            return JsonResponse({'status': 'success', 'message': f'{product.name} added to cart.'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
