@@ -12,7 +12,10 @@ urlpatterns = [
     path("seller_register",views.seller_register,name="seller_register"),
     path("veryfy_email",views.veryfy_email,name="veryfy_email"),
     path("get_code/",views.get_code,name="get_code"),
-    path("add_to_cart",views.add_to_cart,name="add_to_cart")
+    path("add_to_cart",views.add_to_cart,name="add_to_cart"),
+    path("buyer_register",views.buyer_register,name="buyer_register"),
+    path("logout_page",views.logout_page,name="logout"),
+    path("delete_cart",views.delete_product,name="delete_product"),
 ]
 
 

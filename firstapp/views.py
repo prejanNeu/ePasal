@@ -28,14 +28,14 @@ def veryfy_email(request):
 
     if request.method == "POST":
         get_otp = request.POST.get("otp")
-        print(otp,get_otp)
+        
         if otp == get_otp:
             
             if role == "seller":
                 return redirect("seller_register")
             
             if role == "buyer":
-                return redirect("login_page")
+                return redirect("buyer_register")
 
         else:
             return render(request,"firstapp/veryfyEmail.html",{"message":"envalid otp "})
@@ -96,7 +96,12 @@ def buyer_register(request):
         buyer = Buyer.objects.create(user=user, name=name,address=address, contact_number=contact_number)
         buyer.save()
 
-    return render
+        user_role = UserRole.objects.create(user=user, role='buyer')
+        user_role.save()
+
+        return redirect("login_page")
+
+    return render(request,"firstapp/buyer_register.html")
 
 
 
@@ -104,11 +109,14 @@ def buyer_register(request):
 # buyer dashboard page 
 @login_required(login_url='login_page')
 def buyer_dashboard(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    buyer = Buyer.objects.filter(user=request.user).first()  # Assuming one buyer per user
+    context = {
+        'buyer': buyer,
+        'cart_items': cart_items,
+    }
 
-    cart_item = Cart.objects.filter(user=request.user)
-
-    
-    return render(request,'firstapp/buyer_dashboard.html',{"cart":cart_item})
+    return render(request, 'firstapp/buyer_dashboard.html', context)
 
 
 
@@ -220,3 +228,17 @@ def add_to_cart(request):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+
+
+
+# This is page log out it hit when the user do logout 
+def logout_page(request):
+    ...
+
+
+# hit when the user delte the item from the cart 
+def delete_product(request,item):
+    ...
+
+
+

@@ -3,60 +3,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Cart - ePasal</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/buyer_dashboard.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/buyer_dashboard.css' %}">
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <a href="/">Home</a>
-    <a href="{% url 'login_page' %}">Login</a>
-    <a href="{% url 'register_page' %}">Register</a>
-    <a href="{% url 'product_page' %}">Products</a>
-  </nav>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'product_page' %}">Products</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
 
-  <!-- Banner Section -->
-  <header>
-    <div class="banner">
-      <h2>Your Cart</h2>
-      <button class="shop-now">Continue Shopping</button>
-    </div>
-  </header>
+    <!-- Buyer Information Section -->
+    <header class="buyer-info">
+        <h1>Welcome to Your Dashboard</h1>
+        {% if buyer %}
+            <p><strong>Name:</strong> {{ buyer.name }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+        {% else %}
+            <p>Buyer information is not available.</p>
+        {% endif %}
+    </header>
 
-  <!-- Cart Section -->
-  <section class="cart-section">
-    <h2>Your Cart Items</h2>
-
-    {% if cart_items %}
-      <div class="cart-items">
-        {% for item in cart_items %}
-          <div class="cart-item">
-            <div class="cart-item-details">
-              <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-item-image">
-              <div class="cart-item-info">
-                <h3 class="cart-item-name">{{ item.product.name }}</h3>
-                <p class="cart-item-price">Price: ${{ item.product.price }}</p>
-                <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
-              </div>
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <h2>Your Cart</h2>
+        {% if cart_items %}
+            <div class="cart-grid">
+                {% for cart_item in cart_items %}
+                <div class="cart-item">
+                    <img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" class="product-image">
+                    <div class="cart-details">
+                        <h3>{{ cart_item.product.name }}</h3>
+                        <p><strong>Price:</strong> ${{ cart_item.product.price }}</p>
+                        <p><strong>Quantity:</strong> {{ cart_item.quantity }}</p>
+                       
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            <a href="{% url 'delete_from_cart' item.id %}" class="delete-icon">
-              <img src="{% static 'images/delete-icon.png' %}" alt="Delete" title="Remove from Cart">
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>Your cart is empty. Start shopping!</p>
-    {% endif %}
-  </section>
-
-  <!-- Cart Icon (Optional) -->
-  <div class="cart-icon">
-    <img id="cart" src="https://w7.pngwing.com/pngs/317/428/png-transparent-shopping-cart-computer-icons-add-to-cart-button-angle-text-service-thumbnail.png" alt="Cart">
-    <span class="cart-count">0</span>
-  </div>
-
+        {% else %}
+            <p class="empty-cart">Your cart is currently empty.</p>
+        {% endif %}
+    </section>
 </body>
 </html>
