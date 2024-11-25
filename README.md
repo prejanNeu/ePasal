@@ -35,8 +35,19 @@ pip install -r requirements.txt
 ### Step 4: Apply database migrations
 
 ```bash
-
+python manage.py migrate
 ```
+
+
+### Step 5: Run the development server
+```bash
+python manage.py runserver
+```
+
+
+### Step 6: Open in Browser
+Visit http://127.0.0.1:8000/ in your browser to start using the platform.
+
 
 
 
