@@ -17,6 +17,26 @@ Follow the steps below to set up and run the project on your local machine:
 ```bash
 git clone https://github.com/yourusername/ePasal.git
 cd ePasal
+```
 
+### Step 2: Install python
+
+```bash
+sudo apt update
+sudo apt install python3
+```
 
 ### Step 3: Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4: Apply database migrations
+
+```bash
+
+```
+
+
+
