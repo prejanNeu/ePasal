@@ -19,3 +19,4 @@ git clone https://github.com/yourusername/ePasal.git
 cd ePasal
 
 
+### Step 3: Install dependencies
