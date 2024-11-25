@@ -48,6 +48,7 @@ python manage.py runserver
 ### Step 6: Open in Browser
 Visit http://127.0.0.1:8000/ in your browser to start using the platform.
 
-
+## Website Link
+You can view the live version of the website by visiting: [Visit the ePasal Website](http://prejjj.pythonanywhere.com)
 
 
