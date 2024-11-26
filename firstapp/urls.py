@@ -14,8 +14,9 @@ urlpatterns = [
     path("get_code/",views.get_code,name="get_code"),
     path("add_to_cart",views.add_to_cart,name="add_to_cart"),
     path("buyer_register",views.buyer_register,name="buyer_register"),
-    path("logout_page",views.logout_page,name="logout"),
-    path("delete_cart",views.delete_product,name="delete_product"),
+    path("logout_page/",views.logout_page,name="logout_page"),
+    path("delete_cart/",views.delete_product,name="delete_product"),
+    path("dashboard/",views.dashboard,name="dashboard"),
 ]
 
 

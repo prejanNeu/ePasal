@@ -16,6 +16,7 @@
     <a href="{% url 'login_page' %}">Login</a>
     <a href="{% url 'register_page' %}">Register</a>
     <a href="{% url 'product_page' %}">Products</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
   </nav>
 
   <!-- Banner Section -->
@@ -25,6 +26,14 @@
       <button class="shop-now">Shop Now</button>
     </div>
   </header>
+
+  {% if messages %}
+  <div class="alert alert-danger">
+      {% for message in messages %}
+          <p>{{ message }}</p>
+      {% endfor %}
+  </div>
+  {% endif %}
 
   <!-- Product Section -->
   <section class="products">
@@ -47,6 +56,9 @@
     <img id="cart" src="https://w7.pngwing.com/pngs/317/428/png-transparent-shopping-cart-computer-icons-add-to-cart-button-angle-text-service-thumbnail.png" alt="Cart">
     <span class="cart-count">0</span>
   </div>
+
+
+
 
   <script>
     // JavaScript for Add to Cart functionality

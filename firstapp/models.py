@@ -11,6 +11,10 @@ class UserRole(models.Model):
 
     def __str__(self):
         return f"{self.user.email} - {self.role}"
+    
+
+    def getRole(self):
+        return self.role
 
 # Model for seller information
 class Seller(models.Model):

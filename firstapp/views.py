@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse,JsonResponse
@@ -109,33 +110,49 @@ def buyer_register(request):
 # buyer dashboard page 
 @login_required(login_url='login_page')
 def buyer_dashboard(request):
-    cart_items = Cart.objects.filter(user=request.user)
-    buyer = Buyer.objects.filter(user=request.user).first()  # Assuming one buyer per user
-    context = {
-        'buyer': buyer,
-        'cart_items': cart_items,
-    }
+
+    userrole = UserRole.objects.filter(user=request.user).first()
+    role = userrole.getRole()
+
+    if role == "buyer":
+        cart_items = Cart.objects.filter(user=request.user)
+        buyer = Buyer.objects.filter(user=request.user).first()  # Assuming one buyer per user
+        context = {
+            'buyer': buyer,
+            'cart_items': cart_items,
+        }
+
+    else:
+        return redirect("login_page")
 
     return render(request, 'firstapp/buyer_dashboard.html', context)
 
 
 
 # seller dashboard page
-@login_required(login_url='login_page')
+
 def seller_dashboard(request):
-    seller = Seller.objects.filter(user=request.user).first()
+
+    userrole = UserRole.objects.filter(user=request.user).first()
+    role = userrole.getRole()
+
+    if role == "seller":
+        seller = Seller.objects.filter(user=request.user).first()
 
 
-    if request.method == "POST":
-        name = request.POST.get('name')
-        description = request.POST.get('description')
-        price = request.POST.get('price')
-        image = request.FILES.get('image')
+        if request.method == "POST":
+            name = request.POST.get('name')
+            description = request.POST.get('description')
+            price = request.POST.get('price')
+            image = request.FILES.get('image')
 
-        seller = Seller.objects.get(user=request.user)
+            seller = Seller.objects.get(user=request.user)
 
-        product = Product.objects.create(name=name,description=description,price=price,image=image,seller=seller)
-        product.save()
+            product = Product.objects.create(name=name,description=description,price=price,image=image,seller=seller)
+            product.save()
+
+    else:
+        return redirect("login_page")
 
     return render(request,'firstapp/seller_dashboard.html',{"seller":seller})
 
@@ -178,16 +195,19 @@ def login_page(request):
         password = request.POST.get('password')
 
         user = authenticate(username=username,password=password)
-        print(user,username,password)
+
         if user is not None:
             user_role = UserRole.objects.get(user=user)
             role = user_role.role
+
+            login(request,user)
+
             if role =="buyer":
-                login(request,user)
                 return redirect('buyer_dashboard')
             
             elif role == "seller":
-                login(request,user)
+                print(role)
+                print("\n")
                 return redirect('seller_dashboard')
         
         else:
@@ -233,12 +253,38 @@ def add_to_cart(request):
 
 # This is page log out it hit when the user do logout 
 def logout_page(request):
-    ...
-
+    # Ensure the user is logged in before attempting to log out
+    if request.user.is_authenticated:
+        logout(request)  # This will log the user out and clear their session
+        return redirect('login_page')  # Redirect to the login page after logging out
+    else:
+        return redirect('login_page')
 
 # hit when the user delte the item from the cart 
-def delete_product(request,item):
+def delete_product(request):
     ...
 
+
+
+def dashboard(request):
+    if request.user.is_authenticated:
+        user_role = UserRole.objects.filter(user=request.user).first()
+        # print(request.user)
+        if user_role:
+            role = user_role.getRole()
+            if role == "buyer":
+                return redirect("buyer_dashboard")
+            elif role == "seller":
+                # Sweet error message for seller trying to buy
+                messages.error(request, "Oops! You're a seller, so you can't make purchases here. Please use your buyer account for that.")
+                return redirect("seller_dashboard")
+        else:
+            # Sweet error message when role is not found
+            messages.error(request, "Whoops! We couldn't find your role. Please check your account settings.")
+            return redirect("product_page")
+    else:
+        # Sweet error message for unauthenticated user
+        messages.error(request, "Uh-oh! It looks like you're not logged in. Please log in to continue.")
+        return redirect("login_page")
 
 
