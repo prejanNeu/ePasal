@@ -15,7 +15,7 @@ Follow the steps below to set up and run the project on your local machine:
 
 ### Step 1: Clone the repository
 ```bash
-git clone https://github.com/yourusername/ePasal.git
+git clone https://github.com/prejanNeu/ePasal.git
 cd ePasal
 ```
 
@@ -29,7 +29,8 @@ sudo apt install python3
 ### Step 3: Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install django
+pip install pillow
 ```
 
 ### Step 4: Apply database migrations
